@@ -1,4 +1,4 @@
-module cute-slog
+module github.com/CopeMonster/cute-slog
 
 go 1.22
 
