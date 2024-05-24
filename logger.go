@@ -9,8 +9,8 @@ type CLogger struct {
 	*slog.Logger
 }
 
-func NewCLogger(writer io.Writer, options Options) CLogger {
-	return CLogger{
+func NewCLogger(writer io.Writer, options Options) *CLogger {
+	return &CLogger{
 		Logger: slog.New(NewHandler(writer, options)),
 	}
 }
