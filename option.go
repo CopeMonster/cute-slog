@@ -7,5 +7,4 @@ type Options struct {
 	JsonFormat bool
 	TimeFormat string
 	SlotOpts   *slog.HandlerOptions
-	ShowSource bool
 }
