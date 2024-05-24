@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"io"
 	"log/slog"
+	"time"
 )
 
 type CuteHandler struct {
@@ -20,6 +21,10 @@ func (c CuteHandler) Enabled(ctx context.Context, level slog.Level) bool {
 func (c CuteHandler) Handle(ctx context.Context, record slog.Record) error {
 	var buf bytes.Buffer
 
+	if c.Options.LogTime {
+		buf.WriteString(fmt.Sprintf("[%s ]", time.Now().String()))
+	}
+
 	if c.Options.ColorFormat {
 		switch record.Level {
 		case slog.LevelInfo:
@@ -33,13 +38,9 @@ func (c CuteHandler) Handle(ctx context.Context, record slog.Record) error {
 		}
 
 		buf.WriteString(BgBlackColor)
-		buf.WriteString(fmt.Sprintf("[%s] ", record.Level.String()))
-		buf.WriteString("\033[0m")
+		buf.WriteString(fmt.Sprintf("[%s]", record.Level.String()))
+		buf.WriteString(" \033[0m")
 		buf.WriteString(record.Message)
-	}
-
-	if c.Options.LogTime {
-
 	}
 
 	if c.Options.JSONFormat {
